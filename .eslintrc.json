@@ -1,0 +1,89 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "airbnb-base",
+        "prettier"
+    ],
+    "plugins": [
+        "babel"
+    ],
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "env": {
+        "jest": true,
+        "browser": true,
+        "mocha": true,
+        "es6": true
+    },
+    "rules": {
+        "no-empty-function": 0,
+        "no-useless-constructor": 0,
+        "no-unused-expressions": 0,
+        "jsx-a11y/alt-text": 0,
+        "jsx-a11y/label-has-for": 0,
+        "no-restricted-properties": 0,
+        "jsx-a11y/no-autofocus": 0,
+        "no-param-reassign": 0,
+        "import/no-named-as-default": 0,
+        "arrow-parens": ["error", "always"],
+        "function-paren-newline": 0,
+        "react/jsx-filename-extension": [1, { "extensions": [".jsx", "tsx"] }],
+        "react/jsx-indent": [
+            "error",
+            4
+        ],
+        "react/jsx-indent-props": [
+            "error",
+            4
+        ],
+        "react/sort-comp": 0,
+        "react/prop-types": 0,
+        "babel/semi": 1,
+        "no-restricted-syntax": 0,
+        "no-mixed-operators": 0,
+        "no-restricted-globals": 0,
+        "no-plusplus": 0,
+        "import/extensions": 0,
+        "import/prefer-default-export": 0,
+        "max-len": [
+            "error",
+            120
+        ],
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "quotes": ["error", "double"],
+        "jsx-quotes": [
+            "error",
+            "prefer-double"
+        ],
+        "no-unused-vars": 0,
+        "no-underscore-dangle": 0,
+        "comma-dangle": ["error", {
+            "arrays": "never",
+            "objects": "never",
+            "imports": "never",
+            "exports": "never",
+            "functions": "ignore"
+        }],
+
+        "jsx-a11y/click-events-have-key-events":  0,
+        "jsx-a11y/no-static-element-interactions": 0,
+        "linebreak-style": 0,
+        "object-curly-newline": ["error", {
+            "ObjectExpression": { "multiline": true },
+            "ObjectPattern": { "multiline": true },
+            "ImportDeclaration": { "multiline": true },
+            "ExportDeclaration": { "multiline": true }
+        }],
+        "class-methods-use-this": 0
+    }
+}

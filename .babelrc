@@ -1,0 +1,23 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "modules": "commonjs",
+                "targets": {
+                    "firefox": "40",
+                    "chrome": "17",
+                    "ie": "11"
+                },
+                "useBuiltIns": false,
+                "loose": true
+            }
+        ],
+        "@babel/typescript"
+    ],
+    "plugins": [
+        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+        "@babel/proposal-class-properties",
+        "@babel/proposal-object-rest-spread"
+    ]
+}
