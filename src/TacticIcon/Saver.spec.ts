@@ -33,8 +33,8 @@ describe("Saver", () => {
         ]);
 
         expect(json).toEqual(
-            "[\n    \"<svg xmlns:tactic=\\\"http://tactic.foo\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><g></g><desc xmlns:tactic=\\\"http://tactic.foo\\\"><name>some-name</name><group>foo</group><angle>-1</angle><rotation>flip</rotation><id>bar</id><keuz>baz</keuz></desc></svg>\",\n" +
-            "    \"<svg xmlns:tactic=\\\"http://tactic.foo\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><g></g><desc xmlns:tactic=\\\"http://tactic.foo\\\"><name>some-name</name><group>foo</group><angle>-1</angle><rotation>flip</rotation><id>bbb</id><keuz>baz</keuz></desc></svg>\"\n" +
+            "[\n    \"<svg xmlns:tactic=\\\"http://tactic.foo\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><g/><desc><tactic:name>some-name</tactic:name><tactic:group>foo</tactic:group><tactic:angle>-1</tactic:angle><tactic:rotation>flip</tactic:rotation><tactic:id>bar</tactic:id><tactic:keuz>baz</tactic:keuz></desc></svg>\",\n" +
+            "    \"<svg xmlns:tactic=\\\"http://tactic.foo\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\"><g/><desc><tactic:name>some-name</tactic:name><tactic:group>foo</tactic:group><tactic:angle>-1</tactic:angle><tactic:rotation>flip</tactic:rotation><tactic:id>bbb</tactic:id><tactic:keuz>baz</tactic:keuz></desc></svg>\"\n" +
             "]"
         );
     });

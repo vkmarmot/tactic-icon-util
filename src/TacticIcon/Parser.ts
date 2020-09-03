@@ -1,18 +1,19 @@
 import { ITacticIcon, ITacticIconMetaData } from "./ITacticIcon";
-import { TAG_ANGLE, TAG_GROUP, TAG_ID, TAG_KEUZ, TAG_NAME, TAG_ROTATION } from "./constants";
+import { TACTIC_NS_VALUE, TAG_ANGLE, TAG_GROUP, TAG_ID, TAG_KEUZ, TAG_NAME, TAG_ROTATION } from "./constants";
 import { fileAsText } from "./functions";
 
 export const getOuterHTML = (element: Element) =>
     element.outerHTML || (element.parentElement && element.parentElement.innerHTML);
 
 export function loadStringValue(defaultValue: string | undefined, svg: SVGSVGElement, tag: string) {
-    const tacticName = svg.getElementsByTagNameNS("http://tactic.foo", tag);
+    const tacticName = svg.getElementsByTagNameNS(TACTIC_NS_VALUE, tag);
     return (tacticName && tacticName[0] && tacticName[0].textContent) || defaultValue;
 }
 
 export function loadBooleanValue(svg: SVGSVGElement, tag: string): boolean {
     return loadStringValue("false", svg, tag) === "true";
 }
+
 export function loadNumericValue(defaultValue: number | undefined, svg: SVGSVGElement, tag: string): number {
     const stringValue = loadStringValue(defaultValue ? String(defaultValue) : undefined, svg, tag);
     const parsed = typeof stringValue !== "undefined" ? parseFloat(stringValue) : NaN;
@@ -20,11 +21,8 @@ export function loadNumericValue(defaultValue: number | undefined, svg: SVGSVGEl
 }
 
 export const loadIconMetaData = (svg: SVGSVGElement, name?: string): ITacticIconMetaData => {
-    const desc = svg.querySelector("desc");
+    // const desc = svg.querySelector("desc");
     const metadata: ITacticIconMetaData = Object.create(null);
-    if (!desc) {
-        return metadata;
-    }
     metadata.id = loadStringValue(undefined, svg, TAG_ID)! || name!;
     metadata.keuz = loadStringValue(undefined, svg, TAG_KEUZ);
     metadata.name = loadStringValue(undefined, svg, TAG_NAME) || metadata.id;
@@ -40,6 +38,7 @@ export const loadIconMetaData = (svg: SVGSVGElement, name?: string): ITacticIcon
 
 export const parseSVG = (svgText: string, name?: string): ITacticIcon | undefined => {
     const content = new DOMParser().parseFromString(svgText, "image/svg+xml");
+    const serializer = new XMLSerializer();
     const svg = content.querySelector("svg");
     if (!svg) {
         return undefined;
@@ -47,7 +46,7 @@ export const parseSVG = (svgText: string, name?: string): ITacticIcon | undefine
     svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     svg.removeAttribute("width");
     svg.removeAttribute("height");
-    const resText = svg.outerHTML;
+    const resText = serializer.serializeToString(svg);
     return {
         meta: loadIconMetaData(svg, name),
         svg(): string {
@@ -84,11 +83,14 @@ export const parseJsonText = (text: string): Promise<ITacticIcon[]> => {
 };
 
 const parseFile = (file: File) => {
-    if (file.name.endsWith(".json")) {
+    const { name } = file;
+    if (name.endsWith(".json")) {
         return parseJson(file);
     }
     return fileAsText(file).then((response): ITacticIcon[] => {
-        const data = parseSVG(response, file.name);
+        const data = parseSVG(
+            response, name.toLowerCase().endsWith(".svg") ? name.substring(0, name.lastIndexOf(".")) : name
+        );
         return data ? [data] : [];
     });
 };

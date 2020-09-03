@@ -1,5 +1,6 @@
 export const SVG_NS = "http://www.w3.org/2000/svg";
-export const TACTIC_NS = "http://tactic.foo";
+export const TACTIC_NS_KEY = "tactic";
+export const TACTIC_NS_VALUE = "http://tactic.foo";
 
 export const TAG_ID = "id";
 export const TAG_KEUZ = "keuz";
