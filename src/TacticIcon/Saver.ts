@@ -51,7 +51,7 @@ export const makeIconSvgWithDesc = (icon: ITacticIcon) => {
     }
     const selector = svg.querySelector(".selector");
     if (!selector) {
-        svg.querySelector("[stroke=\"#4B54FF\"]")?.setAttribute("class", "selector");
+        svg.querySelector("[stroke=\"#4B54FF\"],[fill=\"#4B54FF\"]")?.setAttribute("class", "selector");
     }
     return svg;
 };
