@@ -1,12 +1,23 @@
 import { ITacticIcon } from "./ITacticIcon";
-import { SVG_NS, TACTIC_NS_VALUE, TAG_ANGLE, TAG_GROUP, TAG_ID, TAG_KEUZ, TAG_NAME, TAG_ROTATION, TACTIC_NS_KEY } from "./constants";
+import {
+    SVG_NS,
+    TACTIC_NS_VALUE,
+    TAG_ANGLE,
+    TAG_GROUP,
+    TAG_ID,
+    TAG_KEUZ,
+    TAG_NAME,
+    TAG_ROTATION,
+    TACTIC_NS_KEY,
+    TAG_COMMENT,
+    TAG_PANORAMA
+} from "./constants";
 
 export const createTagWithValue = (tagName: string, value: string | number | undefined) => {
     if (!value) {
         return undefined;
     }
     const tag = document.createElementNS(TACTIC_NS_VALUE, tagName);
-    console.log(tag.namespaceURI)
     const text = document.createTextNode(String(value));
     tag.appendChild(text);
     return tag;
@@ -28,6 +39,8 @@ export const makeIconSvgWithDesc = (icon: ITacticIcon) => {
     const rotation = createTagWithValue(TAG_ROTATION, icon.meta.rotationType);
     const id = createTagWithValue(TAG_ID, icon.meta.id);
     const keuz = createTagWithValue(TAG_KEUZ, icon.meta.keuz);
+    const panorama = createTagWithValue(TAG_PANORAMA, icon.meta.panoramaId);
+    const comment = createTagWithValue(TAG_COMMENT, icon.meta.comment);
     if (name) {
         desc.appendChild(name);
     }
@@ -45,6 +58,12 @@ export const makeIconSvgWithDesc = (icon: ITacticIcon) => {
     }
     if (keuz) {
         desc.appendChild(keuz);
+    }
+    if (panorama) {
+        desc.appendChild(panorama);
+    }
+    if (comment) {
+        desc.appendChild(comment);
     }
     if (desc.childNodes.length) {
         svg.appendChild(desc);

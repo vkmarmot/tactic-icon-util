@@ -1,9 +1,25 @@
 import { ITacticIcon, ITacticIconMetaData } from "./ITacticIcon";
-import { TACTIC_NS_VALUE, TAG_ANGLE, TAG_GROUP, TAG_ID, TAG_KEUZ, TAG_NAME, TAG_ROTATION } from "./constants";
+import {
+    TACTIC_NS_VALUE,
+    TAG_ANGLE, TAG_COMMENT,
+    TAG_GROUP,
+    TAG_ID,
+    TAG_KEUZ,
+    TAG_NAME,
+    TAG_PANORAMA,
+    TAG_ROTATION
+} from "./constants";
 import { fileAsText } from "./functions";
 
-export const getOuterHTML = (element: Element) =>
+const getOuterAsSerializer = (element: Element) => {
+    const serializer = new XMLSerializer();
+    return serializer.serializeToString(element);
+};
+
+const getOuterHTMLFromParent = (element: Element) =>
     element.outerHTML || (element.parentElement && element.parentElement.innerHTML);
+
+export const getOuterHTML = typeof XMLSerializer !== "undefined" ? getOuterAsSerializer : getOuterHTMLFromParent;
 
 export function loadStringValue(defaultValue: string | undefined, svg: SVGSVGElement, tag: string) {
     const tacticName = svg.getElementsByTagNameNS(TACTIC_NS_VALUE, tag);
@@ -25,6 +41,8 @@ export const loadIconMetaData = (svg: SVGSVGElement, name?: string): ITacticIcon
     const metadata: ITacticIconMetaData = Object.create(null);
     metadata.id = loadStringValue(undefined, svg, TAG_ID)! || name!;
     metadata.keuz = loadStringValue(undefined, svg, TAG_KEUZ);
+    metadata.panoramaId = loadStringValue(undefined, svg, TAG_PANORAMA);
+    metadata.comment = loadStringValue(undefined, svg, TAG_COMMENT);
     metadata.name = loadStringValue(undefined, svg, TAG_NAME) || metadata.id;
     const nameWithMeta = /a\$\{__LANG\("(.)+"+\)\}/.exec(metadata.name);
     if (nameWithMeta && nameWithMeta.length > 1) {
