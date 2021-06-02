@@ -8,3 +8,5 @@ export const TAG_NAME = "name";
 export const TAG_GROUP = "group";
 export const TAG_ROTATION = "rotation";
 export const TAG_ANGLE = "angle";
+export const TAG_COMMENT = "comment";
+export const TAG_PANORAMA = "panoramaId";
